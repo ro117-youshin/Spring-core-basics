@@ -50,7 +50,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/ro117-youshin/Spring-core-basics/blob/main/img/polymorphism_in_java_2.png" width="600" height="350"/>
+  <img src="https://github.com/ro117-youshin/Spring-core-basics/blob/main/img/polymorphism_in_java_2.png" width="600" height="200"/>
 </p>
 
 ```java
