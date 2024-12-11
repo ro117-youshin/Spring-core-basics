@@ -1,6 +1,10 @@
 # Spring-core-basics
 스프링 핵심 원리
 
+## Index
+* [Intro 좋은 객체 지향 프로그래밍?](https://github.com/ro117-youshin/Spring-core-basics?tab=readme-ov-file#intro)
+* [관심사의 분리](https://github.com/ro117-youshin/Spring-core-basics?tab=readme-ov-file#관심사의분리)
+
 ---
 
 ### Intro
@@ -96,3 +100,31 @@ public class MemberService {
 * Spring은 다형성을 극대화해서 이용할 수 있게 도와준다.
 * Spring에서 이야기하는 IoC(제어의 역전), DI(의존관계 주입)은 다형성을 활용해서 역할과 구현을 편리하게 다룰 수 있도록 지원한다.
 * Spring을 사용하면 마치 레고 블럭 조립하듯, 공연 무대의 배우를 선택하듯, 구현을 편리하게 변경할 수 있다.
+
+---
+
+### 관심사의 분리
+* 애플리케이션을 하나의 공연이라고 했을때, 각각 Interface를 배역(배우 역할)이라 생각하자. 그런데 실제 배역을 맡을 배우는 누가 선택하는가?
+* 공연의 주연, 조연을 정하는 것은 배우가 아니다. 만약 그렇다면 남자 주연을 맡은 배우는 공연도 하고 상대 여자 주연 배우도 직접 초빙해야 하는 **다양한 책임**을 갖고 있다.
+
+* DIP 위반 -> 추상에만 의존하도록 변경(Interface에만 의존)
+* 즉, **Interface**에만 의존하도록 설계를 변경하자.
+
+```java
+public class OrderServiceImpl implements OrderService {
+    // private final DiscountPolicy = new RateDiscountPolicy();
+    private DiscountPolicy discountPolicy;
+    
+    // 생성자를 통한 의존관계 주입
+    public OrderServiceImpl(..., DiscountPolicy discountPolicy) {
+        ...
+        this.discountPolicy = discountPolicy;
+    }
+}
+```
+
+#### 💡 관심사를 분리하자.
+* 배우는 본인의 역할인 배역을 수행하는 것에만 집중해야 한다.
+* 남자 배우는 어떤 여자 배우가 와도 똑같이 공연할 수 있어야 한다.
+* 공연을 구성하고, 담당 배우를 섭외하고, 역할에 맞는 배우를 지정하는 책임을 담당하는 별도의 **공연 기획자**가 나올시점이다.
+* 공연 기획자를 만들고, 배우와 공연 기확자의 책임을 확실히 분리하자.
